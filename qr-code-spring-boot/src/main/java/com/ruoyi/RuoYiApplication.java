@@ -17,7 +17,7 @@ public class RuoYiApplication
         // System.setProperty("spring.devtools.restart.enabled", "false");
         SpringApplication.run(RuoYiApplication.class, args);
         System.out.println("(♥◠‿◠)ﾉﾞ     ლ(´ڡ`ლ)ﾞ  \n" +
-                " .-------.       ____     __        \n" +
+                " .-------.       ____ 1    __        \n" +
                 " |  _ _   \\      \\   \\   /  /    \n" +
                 " | ( ' )  |       \\  _. /  '       \n" +
                 " |(_ o _) /        _( )_ .'         \n" +
