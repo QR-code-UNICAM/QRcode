@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace:名称空间 -->
+<mapper namespace="com.ruoyi.project.system.mapper.QrCodeMapper">
+
+    <resultMap type="QrCode" id="QrCodeResult">
+        <id     property="id"      column="id"      />
+        <result property="qrcode"    column="qrcode"    />
+        <result property="user"     column="user"     />
+        <result property="content"   column="content"   />
+        <result property="qrcodetype"    column="qrcodetype"    />
+        <result property="creattime"    column="creattime"    />
+        <result property="col1"      column="col1"      />
+        <result property="col2"      column="col2"      />
+        <result property="col3"    column="col3"    />
+    </resultMap>
+
+    <sql id="selectQrcodeVo">
+        select qrcode, user, content, qrcodetype, creattime,col1,col2,col3
+        from qrcode
+    </sql>
+
+
+    <insert id="insertQrcode" parameterType="QrCode">
+        insert into qrcode (
+        <if test="qrcode != null and qrcode != '' ">qrcode,</if>
+        <if test="user != null and user != '' ">user,</if>
+        <if test="content != null and content != '' ">content,</if>
+        <if test="qrcodetype != null and qrcodetype != '' ">qrcodetype,</if>
+        <if test="col1 != null and col1 != ''">col1,</if>
+        <if test="col2 != null and col2 != ''">col2,</if>
+        <if test="col3 != null and col3 != ''">col3,</if>
+        creattime
+        )values(
+        <if test="qrcode != null and qrcode != ''">#{qrcode},</if>
+        <if test="user != null and user != ''">#{user},</if>
+        <if test="content != null and content != ''">#{content},</if>
+        <if test="qrcodetype != null and qrcodetype != ''">#{qrcodetype},</if>
+        <if test="col1 != null and col1 != ''">#{col1},</if>
+        <if test="col2 != null and col2 != ''">#{col2},</if>
+        <if test="col3 != null and col3 != ''">#{col3},</if>
+        now()
+        )
+    </insert>
+
+
+
+    <select id="selectQrcodeByUserList" parameterType="QrCode" resultMap="QrCodeResult">
+        <include refid="selectQrcodeVo"/>
+        <where>
+            <if test="user != null and user != ''">
+                AND user like concat('%', #{user}, '%')
+            </if>
+            <if test="content != null and content != ''">
+                AND content = #{content}
+            </if>
+            <if test="qrcodetype != null and qrcodetype != ''">
+                AND qrcodetype like concat('%', #{qrcodetype}, '%')
+            </if>
+        </where>
+    </select>
+</mapper>
