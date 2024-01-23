@@ -28,7 +28,7 @@ public class QrcodeController {
                                        @RequestParam String flag,
                                        @RequestParam String text,
                                        @RequestParam String user,
-                                       @RequestParam int[] color){
+                                       @RequestParam(value = "color",required = false) int[] color){
 
         //MultipartFile file = null;
         System.out.println("生成二维码接收的参数： file===>"+ file);
@@ -37,9 +37,13 @@ public class QrcodeController {
         System.out.println("生成二维码接收的参数： user===》  "+ user);
         System.out.println("生成二维码接收的参数： color===》  "+ color);
 
-        int r = color[0];
-        int g = color[1];
-        int b = color[2];
+        int r = 255 ,g = 255,b= 255;
+
+        if(color != null){
+            r = color[0];
+            g = color[1];
+            b = color[2];
+        }
 
         String qrCode = " ";
 
