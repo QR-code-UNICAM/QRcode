@@ -111,7 +111,7 @@
           text: '',
           flag: '',
           file: '',
-          color:'',
+          color:'#FBFBFB',
         }
 
       }
@@ -138,14 +138,15 @@
         formData.append('user', this.$route.query.email)
 
 
-        let color = this.sizeForm.color
-        console.log(color)
-        let rgb = this.hexToRgbString(color)
-
-        // 更新表单的值
-        this.sizeForm.color = rgb
-        console.log(rgb)
-        formData.append('color', rgb)
+        if (this.sizeForm.flag == 'color'){
+          let color = this.sizeForm.color
+          console.log(color)
+          let rgb = this.hexToRgbString(color)
+          // 更新表单的值
+          this.sizeForm.color = rgb
+          console.log(rgb)
+          formData.append('color', rgb)
+        }
 
 
 
