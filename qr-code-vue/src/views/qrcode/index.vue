@@ -2,15 +2,74 @@
   <el-container>
     <el-header>
 
-      <el-tabs v-model="TabValue" type="card" @tab-click="TabClick">
-        <el-tab-pane label="QR Code Generator" name="first">
+        <el-tabs v-model="TabValue" type="card" @tab-click="TabClick">
+          <el-tab-pane disabled="true">
+            <span slot="label"><i class="el-icon-s-grid" style="width:25px ;height: auto "></i><b style="color: #696969">QRCode</b></span>
+          </el-tab-pane>
+          <el-tab-pane label="QR Code Generator" name="first">
+
+            <el-container>
+              <el-aside width="800px">
 
 
-          <div>
-            <el-card :body-style="{ padding: '0px' }">
-              <img :src="qrcode">
-              <div style="padding: 4px;">
-                <span>Freshly Baked~</span>
+
+                <el-form ref="sizeForm" :model="sizeForm" enctype="multipart/form-data"  label-width="80px" size="medium">
+                  <!--          <el-form ref="sizeForm" :model="sizeForm"   label-width="80px" size="medium">-->
+
+                  <el-tabs v-model="activeName" @tab-click="clearText" >
+                    <el-tab-pane label="TEXT" name="text">
+                      <el-form-item label="TEXT">
+                        <el-input type="textarea" :rows="2" v-model="sizeForm.text" placeholder="Paste enter text to create QR code" width="300px"></el-input>
+                      </el-form-item>
+                    </el-tab-pane>
+                    <el-tab-pane label="URL" name="url">
+                      <el-form-item label="URL">
+                        <el-input  v-model="sizeForm.text" placeholder="Paste a url to create QR code" width="300px"></el-input>
+                      </el-form-item>
+                    </el-tab-pane>
+
+                    <el-tab-pane label="Picture" name="picture">
+                      <el-form-item label="TEXT">
+                        <el-input type="textarea" :rows="2" v-model="sizeForm.text" placeholder="Paste a url or enter text to create QR code" width="300px"></el-input>
+                      </el-form-item>
+                      <el-form-item label="uploadPhoto">
+                        <input ref="fileInput" type="file" name="file" @change="handleFileChange">
+                      </el-form-item>
+                    </el-tab-pane>
+                    <!--                  <el-tab-pane label="File" name="file">-->
+                    <!--                    <el-form-item label="TEXT">-->
+                    <!--                      <el-input type="textarea" :rows="2" v-model="sizeForm.text" placeholder="Paste enter text to create QR code" width="300px"></el-input>-->
+                    <!--                    </el-form-item>-->
+                    <!--                    <el-form-item label="uploadPhoto">-->
+                    <!--                      <input ref="fileInput" type="file" name="file" @change="handleFileChange">-->
+                    <!--                    </el-form-item>-->
+                    <!--                  </el-tab-pane>-->
+                  </el-tabs>
+
+
+                  <el-form-item label="qrCodeType">
+                    <el-radio-group v-model="sizeForm.flag" size="medium">
+                      <el-radio border label="normal"></el-radio>
+                      <el-radio border label="color"></el-radio>
+                      <el-radio border label="style"></el-radio>
+                      <el-radio border label="logo"></el-radio>
+                      <el-radio border label="background"></el-radio>
+                      <!--                    <el-radio border label="imageFill"></el-radio>-->
+                      <el-radio border label="gif"></el-radio>
+                    </el-radio-group>
+                  </el-form-item>
+                  <el-form-item label="qrCodeColor">
+                    <el-color-picker v-model="sizeForm.color" ></el-color-picker>
+                  </el-form-item>
+                  <el-form-item size="large">
+                    <el-button type="primary" @click="onSubmit">Generating a QRCode</el-button>
+                    <el-tag type="info"><button type="reset">Reset</button></el-tag>
+                  </el-form-item>
+                </el-form>
+
+              </el-aside>
+
+              <el-main>
                 <div>
                     <el-dialog :visible.sync="dialogVisible">
                       <img  :src="qrcode" style="width: 500px ;height: auto">
