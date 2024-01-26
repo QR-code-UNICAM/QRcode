@@ -71,57 +71,35 @@
 
               <el-main>
                 <div>
-                    <el-dialog :visible.sync="dialogVisible">
-                      <img  :src="qrcode" style="width: 500px ;height: auto">
-                    </el-dialog>
-                  <el-button type="text"  @click="showEnlargeImage">Click to enlarge</el-button>
+                  <el-card :body-style="{ padding: '0px' }">
+                    <img :src="qrcode">
+                    <div style="padding: 4px;">
+                      <span>Scanning···</span>
+                      <div>
+                        <el-dialog :visible.sync="dialogVisible">
+                          <img  :src="qrcode" style="width: 400px ;height: auto">
+                        </el-dialog>
+                        <el-button type="text"  @click="showEnlargeImage">I'll zoom in</el-button>
+                      </div>
+                    </div>
+                  </el-card>
                 </div>
-              </div>
-            </el-card>
-          </div>
-
-          <el-form ref="sizeForm" :model="sizeForm" enctype="multipart/form-data"  label-width="80px" size="medium">
-<!--          <el-form ref="sizeForm" :model="sizeForm"   label-width="80px" size="medium">-->
-            <el-form-item label="URL OR TEXT">
-              <el-input v-model="sizeForm.text" placeholder="Paste a url or enter text to create QR code" width="300px"></el-input>
-            </el-form-item>
-
-            <el-form-item label="uploadPhoto">
-              <input ref="fileInput" type="file" name="file" @change="handleFileChange">
-            </el-form-item>
-
-            <el-form-item label="qrCodeType">
-              <el-radio-group v-model="sizeForm.flag" size="medium">
-                <el-radio border label="normal"></el-radio>
-                <el-radio border label="color"></el-radio>
-
-                <el-radio border label="style"></el-radio>
-                <el-radio border label="logo"></el-radio>
-                <el-radio border label="background"></el-radio>
-                <el-radio border label="imageFill"></el-radio>
-                <el-radio border label="gif"></el-radio>
-              </el-radio-group>
-            </el-form-item>
-            <el-form-item label="qrCodeColor">
-            <el-color-picker v-model="sizeForm.color" ></el-color-picker>
-            </el-form-item>
-            <el-form-item size="large">
-              <el-button type="primary" @click="onSubmit">Create Instantly</el-button>
-              <el-tag type="info"><button type="reset">Reset</button></el-tag>
-            </el-form-item>
-          </el-form>
+                  </el-main>
+            </el-container>
 
 
-        </el-tab-pane>
-        <el-tab-pane label="QR Code History" name="second">
-          <div class="block">
-            <span class="demonstration">QR Code History</span>
-            <el-carousel :interval="4000" type="card" height="300px">
-              <el-carousel-item v-for="item in qrcodeHistory" :key="item.name">
-                <img :src="item.qrcode">
-              </el-carousel-item>
-            </el-carousel>
-            <div>
+
+
+
+          </el-tab-pane>
+          <el-tab-pane label="QR Code History" name="second">
+            <div class="block">
+              <span class="demonstration">QR Code History</span>
+              <el-carousel :interval="4000" type="card" height="300px">
+                <el-carousel-item v-for="item in qrcodeHistory"  :key="item.name">
+                  <img :src="item.qrcode">
+                </el-carousel-item>
+              </el-carousel>
 
             </div>
           </div>
