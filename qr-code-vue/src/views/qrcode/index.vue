@@ -102,16 +102,15 @@
               </el-carousel>
 
             </div>
-          </div>
-        </el-tab-pane>
-<!--        <el-tab-pane label="More" name="third">-->
-<!--          More-->
-<!--        </el-tab-pane>-->
-        <el-tab-pane label="LOGOUT" name="LOGOUT">
-          LOGOUT
-        </el-tab-pane>
+          </el-tab-pane>
+          <!--        <el-tab-pane label="More" name="third">-->
+          <!--          More-->
+          <!--        </el-tab-pane>-->
+          <el-tab-pane label="LOGOUT" name="LOGOUT">
+            LOGOUT
+          </el-tab-pane>
 
-      </el-tabs>
+        </el-tabs>
 
     </el-header>
 
@@ -139,6 +138,7 @@
     data() {
       return {
         TabValue: 'first',
+        activeName: 'text',
         text: '',
         previewPhoto: '',
         qrcode:'https://th.bing.com/th/id/R.bcd18b2eff79aa76c210cb1b4fa9e718?rik=TWBJEYvTNbweXA&riu=http%3a%2f%2fpic.616pic.com%2fys_bnew_img%2f00%2f10%2f41%2fe0SAYdMOs1.jpg&ehk=o1kc%2fcW7P17uacN%2fn%2fqoQKqoYYaY3TmPdLFC0lXqfkM%3d&risl=&pid=ImgRaw&r=0',
@@ -214,6 +214,10 @@
       handleFileChange(e) {
          this.sizeForm.file = e.target.files[0]
       },
+      clearText(tab){
+        console.log(tab.name)
+        this.sizeForm.text = ''
+      },
       TabClick(tab) {
         if (tab.name === 'second'){
           const email = this.$route.query.email
@@ -221,14 +225,16 @@
 
             codeList(email).then(res => {
 
-              console.log(res.data)
+              
 
               // this.qrcodeHistory = "data:image/jpeg;base64,"+ res.data.qrcode
               // 处理每个对象
               res.data.forEach(item => {
                 this.qrcodeHistory.push({
                   qrcode: "data:image/jpeg;base64,"+item.qrcode,
-                  name: item.id
+                  name: item.id,
+                  qrcodetype: item.qrcodetype,
+                  creattime:item.creattime
                   })
                 })
 
@@ -285,7 +291,7 @@ img {
 }
 
 .el-carousel__item:nth-child(2n+1) {
-  background-color: #9ea6ad;
+  background-color: #eefaf4;
 }
 
 
